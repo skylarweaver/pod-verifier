@@ -18,11 +18,7 @@ export default function Footer() {
           </p>
           
           <div className="flex flex-wrap justify-center items-center space-x-6 text-sm text-green-600">
-            <span>Built with React & TypeScript</span>
-            <span>•</span>
-            <span>Powered by @pcd/pod</span>
-            <span>•</span>
-            <span>Frog-themed with ❤️</span>
+            <span>Powered by <a href="https://docs.pcd.team/pcd-packages/pod" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 underline transition-colors duration-200">@pcd/pod</a></span>
             <span>•</span>
             <a 
               href="https://github.com/skylarweaver/pod-verifier" 
