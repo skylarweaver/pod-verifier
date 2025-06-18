@@ -3,13 +3,33 @@
  */
 
 /**
- * Encode POD JSON for URL sharing
+ * Simple compression using gzip-like approach for URL sharing
+ */
+function compressJSON(json: string): string {
+  // Remove unnecessary whitespace and format JSON compactly
+  try {
+    const parsed = JSON.parse(json)
+    return JSON.stringify(parsed)
+  } catch {
+    return json.replace(/\s+/g, ' ').trim()
+  }
+}
+
+/**
+ * Encode POD JSON for URL sharing with better compression
  */
 export function encodePODForURL(podJSON: string): string {
   try {
-    // Compress and encode the POD JSON
-    const compressed = btoa(encodeURIComponent(podJSON))
-    return compressed
+    // First compress the JSON by removing whitespace
+    const compressed = compressJSON(podJSON)
+    
+    // Use base64url encoding (URL-safe base64)
+    const encoded = btoa(compressed)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=/g, '')
+    
+    return encoded
   } catch (error) {
     console.error('Failed to encode POD for URL:', error)
     return ''
@@ -21,7 +41,15 @@ export function encodePODForURL(podJSON: string): string {
  */
 export function decodePODFromURL(encoded: string): string | null {
   try {
-    const decoded = decodeURIComponent(atob(encoded))
+    // Convert back from base64url to base64
+    let base64 = encoded.replace(/-/g, '+').replace(/_/g, '/')
+    
+    // Add padding if needed
+    while (base64.length % 4) {
+      base64 += '='
+    }
+    
+    const decoded = atob(base64)
     return decoded
   } catch (error) {
     console.error('Failed to decode POD from URL:', error)

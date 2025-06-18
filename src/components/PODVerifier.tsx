@@ -38,7 +38,13 @@ export default function PODVerifier() {
   useEffect(() => {
     const podFromURL = extractPODFromURL()
     if (podFromURL && isValidPODJSON(podFromURL)) {
-      setPodInput(podFromURL)
+      // Format the POD nicely before setting it
+      try {
+        const formatted = JSON.stringify(JSON.parse(podFromURL), null, 2)
+        setPodInput(formatted)
+      } catch {
+        setPodInput(podFromURL)
+      }
       setLoadedFromURL(true)
       // Optionally auto-verify PODs from URL
       // handleVerify() would go here if we want auto-verification
