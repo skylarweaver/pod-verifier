@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react'
+import { Heart, Github } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -23,6 +23,16 @@ export default function Footer() {
             <span>Powered by @pcd/pod</span>
             <span>•</span>
             <span>Frog-themed with ❤️</span>
+            <span>•</span>
+            <a 
+              href="https://github.com/skylarweaver/pod-verifier" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1 text-green-600 hover:text-green-700 transition-colors duration-200"
+            >
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
           </div>
           
           <div className="mt-6 text-xs text-green-500">

@@ -141,9 +141,34 @@ export default function HelpSection() {
             <p className="mt-3"><strong>Tips:</strong></p>
             <ul className="ml-4 space-y-1">
               <li>• Use the sample buttons to see working examples</li>
-              <li>• Copy POD data carefully to avoid formatting issues</li>
+              <li>• Try "Malformed JSON" to see auto-formatting in action</li>
+              <li>• The verifier can auto-fix common JSON issues like double quotes and trailing commas</li>
               <li>• Check that signatures and public keys are proper base64 strings</li>
             </ul>
+          </div>
+        </HelpTopic>
+
+        <HelpTopic 
+          title="Auto-Formatting" 
+          icon={<Lightbulb className="w-4 h-4 text-blue-600" />}
+        >
+          <div className="text-blue-700 space-y-2 text-sm">
+            <p>
+              The POD Verifier can automatically fix common JSON formatting issues:
+            </p>
+            <ul className="ml-4 space-y-1">
+              <li>• <strong>Double Quotes:</strong> Fixes ""key"" → "key"</li>
+              <li>• <strong>Unquoted Keys:</strong> Adds quotes around object keys</li>
+              <li>• <strong>Single Quotes:</strong> Converts 'text' → "text"</li>
+              <li>• <strong>Trailing Commas:</strong> Removes extra commas at the end</li>
+              <li>• <strong>Comments:</strong> Strips // and /* */ comments</li>
+              <li>• <strong>Python Constants:</strong> Converts None/True/False to null/true/false</li>
+            </ul>
+            
+            <p className="mt-2">
+              When malformed JSON is detected, the verifier will automatically repair it and show you what was fixed. 
+              This is especially helpful when copying POD data from CSV files or other sources.
+            </p>
           </div>
         </HelpTopic>
 

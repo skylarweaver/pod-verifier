@@ -14,6 +14,7 @@ A fun, frog-themed web application for verifying Provable Object Data (PODs) usi
 - **🔗 URL Sharing**: Share verified PODs via encoded URLs for collaborative verification
 - **📊 Enhanced POD Display**: Beautiful, categorized view of POD contents with smart formatting
 - **📤 One-Click Sharing**: Simple link copying with visual feedback
+- **🛠️ Auto-Formatting**: Automatically fixes malformed JSON with detailed repair notifications
 
 ## 🚀 Getting Started
 
@@ -66,6 +67,7 @@ Use the sample buttons to test with different POD types:
 - **Valid POD**: A working POD from our CSV converter
 - **Alice POD**: Another valid POD with different user data  
 - **Invalid POD**: A malformed POD to see error handling
+- **Malformed JSON**: Test auto-formatting with intentionally broken JSON
 
 ### Understanding Results
 
@@ -103,6 +105,26 @@ The enhanced POD viewer organizes data into logical categories:
 - **📍 Location Pins**: Geographic location highlighting
 - **✅ Boolean Display**: Checkmarks and X marks for true/false values
 - **🔐 Secret Masking**: Partial hiding of sensitive data for security
+
+### Auto-Formatting
+
+The POD Verifier includes intelligent JSON auto-formatting powered by the `jsonrepair` library:
+
+**Common Issues It Fixes:**
+- **Double-quoted strings**: `""key""` → `"key"`
+- **Unquoted object keys**: `{name: "value"}` → `{"name": "value"}`
+- **Single quotes**: `'text'` → `"text"`
+- **Trailing commas**: `{"key": "value",}` → `{"key": "value"}`
+- **Comments**: Removes `//` and `/* */` comments
+- **Python constants**: `None/True/False` → `null/true/false`
+- **Multiple commas**: `,,` → `,`
+- **General formatting**: Improves structure and readability
+
+**User Experience:**
+- **Automatic Detection**: Malformed JSON is automatically detected and repaired
+- **Visual Notification**: Orange banner shows what was fixed
+- **Seamless Integration**: Auto-formatting happens during verification
+- **Educational Value**: Users learn about common JSON issues
 
 ## 📋 POD Format
 
@@ -161,6 +183,7 @@ PODs support both simple and typed entries:
 - **Vite**: Fast build tool and development server
 - **Tailwind CSS**: Utility-first styling framework
 - **Lucide React**: Beautiful, customizable icons
+- **jsonrepair**: Intelligent JSON auto-formatting and repair
 
 ### Key Components
 

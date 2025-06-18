@@ -29,6 +29,10 @@ export default function PODVerifier() {
   })
   const [showDetailedView, setShowDetailedView] = useState(false)
   const [loadedFromURL, setLoadedFromURL] = useState(false)
+  const [autoFormatInfo, setAutoFormatInfo] = useState<{
+    wasRepaired: boolean
+    repairDescription: string[]
+  } | null>(null)
 
   // Load POD from URL on component mount
   useEffect(() => {
@@ -50,6 +54,19 @@ export default function PODVerifier() {
     try {
       // Step 1: Validate and parse POD input
       const validationResult = validatePODInput(podInput)
+      
+      // Update the input with auto-formatted JSON if it was repaired
+      if (validationResult.autoFormatResult?.wasRepaired && validationResult.autoFormatResult.repairedJSON) {
+        setPodInput(validationResult.autoFormatResult.repairedJSON)
+        setAutoFormatInfo({
+          wasRepaired: true,
+          repairDescription: validationResult.repairDescription || ['JSON formatting improved']
+        })
+        // Auto-hide the notification after 8 seconds
+        setTimeout(() => setAutoFormatInfo(null), 8000)
+      } else {
+        setAutoFormatInfo(null)
+      }
       
       if (!validationResult.isValid) {
         setVerification({
@@ -107,8 +124,9 @@ export default function PODVerifier() {
     clearPODFromURL()
   }
 
-  const loadSamplePOD = (sampleType: 'valid' | 'alice' | 'invalid' = 'valid') => {
+  const loadSamplePOD = (sampleType: 'valid' | 'alice' | 'invalid' | 'malformed' = 'valid') => {
     let sampleData
+    let isRawText = false
     
     switch (sampleType) {
       case 'alice':
@@ -117,13 +135,19 @@ export default function PODVerifier() {
       case 'invalid':
         sampleData = testCases.missingSignature
         break
+      case 'malformed':
+        // Load malformed JSON to test auto-formatting
+        sampleData = `{""entries"":{""attendeeEmail"":""test@example.com"",""attendeeName"":""Test User"",""eventName"":""Demo Event"",isActive:true,count:42,},""signature"":""demo-signature"",""signerPublicKey"":""demo-key""}`
+        isRawText = true
+        break
       default:
         sampleData = realPODExample
     }
     
-    setPodInput(JSON.stringify(sampleData, null, 2))
+    setPodInput(isRawText ? sampleData as string : JSON.stringify(sampleData, null, 2))
     setVerification({ isLoading: false, result: null, error: null, validationError: null, jsonPOD: null })
     setShowDetailedView(false)
+    setAutoFormatInfo(null)
   }
 
 
@@ -147,6 +171,32 @@ export default function PODVerifier() {
           <button
             onClick={() => setLoadedFromURL(false)}
             className="text-blue-400 hover:text-blue-600"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+      
+      {/* Auto-Format Notification */}
+      {autoFormatInfo?.wasRepaired && (
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <Check className="w-5 h-5 text-orange-600 mr-3" />
+            <div>
+              <p className="text-orange-800 font-medium">JSON auto-formatted! 🛠️</p>
+              <div className="text-orange-600 text-sm">
+                <p>Fixed the following issues:</p>
+                <ul className="list-disc list-inside mt-1">
+                  {autoFormatInfo.repairDescription.map((desc, index) => (
+                    <li key={index}>{desc}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={() => setAutoFormatInfo(null)}
+            className="text-orange-400 hover:text-orange-600"
           >
             <X className="w-5 h-5" />
           </button>
@@ -181,6 +231,12 @@ export default function PODVerifier() {
               className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
             >
               Invalid POD
+            </button>
+            <button
+              onClick={() => loadSamplePOD('malformed')}
+              className="px-3 py-1 text-sm bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition-colors"
+            >
+              Malformed JSON
             </button>
             <button
               onClick={handleReset}

@@ -1,11 +1,14 @@
 import { POD } from '@pcd/pod'
 import type { JSONPOD } from '@pcd/pod'
+import { autoFormatJSON, getRepairDescription, type JSONFormatResult } from './jsonAutoFormat'
 
 export interface PODValidationResult {
   isValid: boolean
   error?: string
   parsedPOD?: POD
   jsonPOD?: JSONPOD
+  autoFormatResult?: JSONFormatResult
+  repairDescription?: string[]
 }
 
 export interface PODValidationError extends Error {
@@ -197,27 +200,34 @@ export function validateValueForType(type: string, value: any, entryName: string
 
 /**
  * Main POD validation function
- * Safely parses JSON and validates POD structure
+ * Safely parses JSON and validates POD structure, with auto-formatting support
  */
 export function validatePODInput(input: string): PODValidationResult {
   try {
-    // Step 1: Parse JSON safely
-    const parseResult = safeJsonParse(input.trim())
-    if (!parseResult.success) {
+    // Step 1: Try auto-formatting malformed JSON
+    const autoFormatResult = autoFormatJSON(input)
+    
+    if (autoFormatResult.error) {
       return {
         isValid: false,
-        error: `JSON parsing failed: ${parseResult.error}`
+        error: `JSON parsing failed: ${autoFormatResult.error}`,
+        autoFormatResult
       }
     }
 
-    const jsonData = parseResult.data
+    const jsonData = autoFormatResult.parsedObject
+    const repairDescription = autoFormatResult.wasRepaired 
+      ? getRepairDescription(autoFormatResult.originalInput, autoFormatResult.repairedJSON)
+      : undefined
 
     // Step 2: Validate basic POD structure
     const structureValidation = validatePODStructure(jsonData)
     if (!structureValidation.isValid) {
       return {
         isValid: false,
-        error: `POD structure invalid: ${structureValidation.error}`
+        error: `POD structure invalid: ${structureValidation.error}`,
+        autoFormatResult,
+        repairDescription
       }
     }
 
@@ -226,7 +236,9 @@ export function validatePODInput(input: string): PODValidationResult {
     if (!entriesValidation.isValid) {
       return {
         isValid: false,
-        error: `POD entries invalid: ${entriesValidation.error}`
+        error: `POD entries invalid: ${entriesValidation.error}`,
+        autoFormatResult,
+        repairDescription
       }
     }
 
@@ -236,12 +248,16 @@ export function validatePODInput(input: string): PODValidationResult {
       return {
         isValid: true,
         parsedPOD: pod,
-        jsonPOD: jsonData
+        jsonPOD: jsonData,
+        autoFormatResult,
+        repairDescription
       }
     } catch (podError) {
       return {
         isValid: false,
-        error: `POD creation failed: ${podError instanceof Error ? podError.message : 'Unknown POD error'}`
+        error: `POD creation failed: ${podError instanceof Error ? podError.message : 'Unknown POD error'}`,
+        autoFormatResult,
+        repairDescription
       }
     }
 
