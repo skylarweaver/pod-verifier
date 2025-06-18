@@ -11,6 +11,9 @@ A fun, frog-themed web application for verifying Provable Object Data (PODs) usi
 - **📚 Educational Content**: Built-in help system explaining PODs and verification process
 - **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
 - **🔧 Real POD Testing**: Includes sample PODs from actual CSV converter output
+- **🔗 URL Sharing**: Share verified PODs via encoded URLs for collaborative verification
+- **📊 Enhanced POD Display**: Beautiful, categorized view of POD contents with smart formatting
+- **📤 One-Click Sharing**: Simple link copying with visual feedback
 
 ## 🚀 Getting Started
 
@@ -54,6 +57,8 @@ The built files will be in the `dist` directory.
 1. **Paste POD JSON**: Copy and paste your POD JSON into the textarea
 2. **Click Verify**: Press the "Verify POD 🐸" button to start verification
 3. **View Results**: See detailed verification results with metadata and entries
+4. **Explore POD Data**: Click "View POD Data" to see enhanced, categorized display
+5. **Share POD**: Use the "Share POD" button to generate a shareable link
 
 ### Sample PODs
 
@@ -67,6 +72,37 @@ Use the sample buttons to test with different POD types:
 - **✅ Valid POD**: Cryptographic signature verified successfully
 - **❌ Invalid POD**: Signature verification failed or data corrupted
 - **⚠️ Validation Error**: JSON format or structure issues
+
+### URL Sharing
+
+Once a POD is successfully verified:
+
+1. **Automatic URL Update**: The URL automatically includes the verified POD data
+2. **Share Button**: Click "Share POD" to copy the shareable URL to your clipboard
+3. **Collaborative Verification**: Recipients can verify the same POD independently
+4. **Auto-Loading**: Shared PODs automatically load when visiting the shared URL
+
+**Example Shareable URL:**
+```
+https://podverifier.com/?pod=eyJlbnRyaWVzIjp7ImF0dGVuZGVlRW1haWwiOiJqb2VAc2htby5vcmciLCJhdHRlbmRlZU5hbWUiOiJKb2UgU2htbyJ9fQ
+```
+
+### Enhanced POD Display
+
+The enhanced POD viewer organizes data into logical categories:
+
+- **👤 Personal Information**: Names, emails, attendee details
+- **🎫 Event Details**: Event names, locations, ticket information  
+- **⏰ Timestamps**: All time-related fields with human-readable formatting
+- **⚙️ Technical Data**: IDs, secrets, configuration values
+- **📄 Other**: Miscellaneous fields
+
+**Smart Formatting Features:**
+- **📅 Date Formatting**: Timestamps → "December 10, 2024 at 10:04:30 PM EST"
+- **📧 Email Icons**: Visual indicators for email addresses
+- **📍 Location Pins**: Geographic location highlighting
+- **✅ Boolean Display**: Checkmarks and X marks for true/false values
+- **🔐 Secret Masking**: Partial hiding of sensitive data for security
 
 ## 📋 POD Format
 
@@ -128,8 +164,10 @@ PODs support both simple and typed entries:
 
 ### Key Components
 
-- **PODVerifier**: Main verification interface
-- **HelpSection**: Expandable educational content
+- **PODVerifier**: Main verification interface with URL sharing integration
+- **PODDisplay**: Enhanced, categorized POD data viewer with smart formatting
+- **ShareButton**: One-click link copying with visual feedback
+- **HelpSection**: Expandable educational content including sharing guidance
 - **Tooltip**: Contextual help tooltips
 - **Header/Footer**: Navigation and branding
 
@@ -140,6 +178,7 @@ PODs support both simple and typed entries:
 3. **Entry Validation**: Verify entry names and types
 4. **Signature Verification**: Cryptographically verify EdDSA signature
 5. **Content ID Validation**: Ensure entries match Merkle tree
+6. **URL Integration**: Update browser URL with verified POD for sharing
 
 ## 🔒 Security Features
 
@@ -147,6 +186,9 @@ PODs support both simple and typed entries:
 - **Client-Side Only**: No data transmission to external servers
 - **Memory Management**: Efficient handling of large PODs
 - **Error Isolation**: Proper error boundaries and handling
+- **URL Encoding Security**: Base64 encoding with proper validation for shared PODs
+- **Privacy Protection**: Clear warnings about URL-based sharing implications
+- **Secret Masking**: Partial hiding of sensitive fields in the enhanced display
 
 ## 🎨 Customization
 
@@ -178,6 +220,10 @@ The application includes comprehensive test data:
 2. Verify validation error messages
 3. Test copy-to-clipboard functionality
 4. Check responsive design on different screen sizes
+5. Test URL sharing functionality with valid PODs
+6. Verify auto-loading from shared URLs
+7. Test clipboard copying functionality
+8. Validate enhanced POD display formatting
 
 ## 📦 Deployment
 

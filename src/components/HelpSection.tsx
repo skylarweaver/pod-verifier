@@ -146,6 +146,27 @@ export default function HelpSection() {
             </ul>
           </div>
         </HelpTopic>
+
+        <HelpTopic 
+          title="Sharing PODs" 
+          icon={<Lightbulb className="w-4 h-4 text-blue-600" />}
+        >
+          <div className="text-blue-700 space-y-2 text-sm">
+            <p>
+              After successfully verifying a POD, you can share it with others:
+            </p>
+            <ul className="ml-4 space-y-1">
+              <li>• <strong>Share Button:</strong> Click "Share POD" to copy a shareable link to your clipboard</li>
+              <li>• <strong>Auto-Load:</strong> Recipients will see the POD pre-loaded when they visit your link</li>
+              <li>• <strong>Secure Sharing:</strong> The POD data is encoded in the URL - no server storage</li>
+              <li>• <strong>Re-verification:</strong> Recipients can verify the POD authenticity themselves</li>
+            </ul>
+            
+            <p className="mt-2">
+              <strong>Privacy Note:</strong> POD data is encoded in the URL itself, so anyone with the link can see the POD contents. Only share links with trusted recipients.
+            </p>
+          </div>
+        </HelpTopic>
       </div>
     </div>
   )
