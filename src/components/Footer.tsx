@@ -17,16 +17,16 @@ export default function Footer() {
             This POD verifier runs entirely in your browser. No data is sent to any server.
           </p>
           
-          <div className="flex flex-wrap justify-center items-center space-x-6 text-sm text-green-600">
-            <span>Powered by <a href="https://docs.pcd.team/pcd-packages/pod" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 underline transition-colors duration-200">@pcd/pod</a></span>
-            <span>•</span>
+          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-green-600">
+            <span className="text-center">Powered by <a href="https://docs.pcd.team/pcd-packages/pod" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 underline transition-colors duration-200">@pcd/pod</a></span>
+            <span className="hidden sm:inline">•</span>
             <a 
               href="https://github.com/skylarweaver/pod-verifier" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center space-x-1 text-green-600 hover:text-green-700 transition-colors duration-200"
             >
-              <Github className="w-4 h-4" />
+              <Github className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>GitHub</span>
             </a>
           </div>

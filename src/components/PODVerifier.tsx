@@ -205,44 +205,46 @@ export default function PODVerifier() {
       
       {/* Input Section */}
       <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-green-200 p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-green-800 flex items-center">
-            <Upload className="w-6 h-6 mr-2" />
-            Paste Your POD
-            <span className="ml-2">
-              <Tooltip content="PODs (Provable Object Data) are cryptographically signed JSON objects. Paste your POD JSON here to verify its authenticity." />
-            </span>
-          </h2>
-          <div className="flex space-x-2">
+        <div className="mb-4">
+          <div className="flex items-start justify-between mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-green-800 flex items-center flex-wrap">
+              <Upload className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
+              <span className="mr-2">Paste Your POD</span>
+              <span className="">
+                <Tooltip content="PODs (Provable Object Data) are cryptographically signed JSON objects. Paste your POD JSON here to verify its authenticity." />
+              </span>
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-2 mb-4">
             <button
               onClick={() => loadSamplePOD('valid')}
-              className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+              className="px-2 py-1 text-xs sm:text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
             >
               Valid POD
             </button>
             <button
               onClick={() => loadSamplePOD('alice')}
-              className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
+              className="px-2 py-1 text-xs sm:text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
             >
               Alice POD
             </button>
             <button
               onClick={() => loadSamplePOD('invalid')}
-              className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+              className="px-2 py-1 text-xs sm:text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
             >
               Invalid POD
             </button>
             <button
               onClick={() => loadSamplePOD('malformed')}
-              className="px-3 py-1 text-sm bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition-colors"
+              className="px-2 py-1 text-xs sm:text-sm bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition-colors"
             >
               Malformed JSON
             </button>
             <button
               onClick={handleReset}
-              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
+              className="px-2 py-1 text-xs sm:text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
             >
-              <RotateCcw className="w-4 h-4 mr-1" />
+              <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
               Reset
             </button>
           </div>
@@ -252,17 +254,17 @@ export default function PODVerifier() {
           value={podInput}
           onChange={(e) => setPodInput(e.target.value)}
           placeholder="Paste your POD JSON here... 🐸"
-          className="w-full h-64 p-4 border border-green-300 rounded-lg font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          className="w-full h-48 sm:h-64 p-3 sm:p-4 border border-green-300 rounded-lg font-mono text-xs sm:text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
         />
         
-        <div className="flex justify-between items-center mt-4">
-          <p className="text-sm text-green-600">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-4 gap-3">
+          <p className="text-xs sm:text-sm text-green-600">
             {podInput.length > 0 ? `${podInput.length} characters` : 'No POD data entered'}
           </p>
           <button
             onClick={handleVerify}
             disabled={!podInput.trim() || verification.isLoading}
-            className="btn-frog disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+            className="btn-frog disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center w-full sm:w-auto text-sm"
           >
             {verification.isLoading ? (
               <>
@@ -336,20 +338,22 @@ export default function PODVerifier() {
               </div>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <button
                 onClick={() => setShowDetailedView(!showDetailedView)}
-                className="flex items-center px-3 py-1 text-sm bg-white/50 rounded-lg hover:bg-white/70 transition-colors"
+                className="flex items-center justify-center px-3 py-2 text-xs sm:text-sm bg-white/50 rounded-lg hover:bg-white/70 transition-colors"
               >
                 {showDetailedView ? (
                   <>
                     <EyeOff className="w-4 h-4 mr-1" />
-                    Hide POD Data
+                    <span className="hidden sm:inline">Hide POD Data</span>
+                    <span className="sm:hidden">Hide Data</span>
                   </>
                 ) : (
                   <>
                     <Eye className="w-4 h-4 mr-1" />
-                    View POD Data
+                    <span className="hidden sm:inline">View POD Data</span>
+                    <span className="sm:hidden">View Data</span>
                   </>
                 )}
               </button>

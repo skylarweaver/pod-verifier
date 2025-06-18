@@ -43,9 +43,9 @@ function CategorySection({ category, entries, onCopy }: CategorySectionProps) {
         <div className="border-t border-current border-opacity-20">
           {entries.map((entry, index) => (
             <div key={index} className={`px-4 py-3 ${index > 0 ? 'border-t border-current border-opacity-10' : ''}`}>
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start gap-3">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-2 mb-1">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className={`font-medium text-gray-800 ${entry.isImportant ? 'text-blue-700' : ''}`}>
                       {entry.name}
                     </span>
@@ -58,12 +58,12 @@ function CategorySection({ category, entries, onCopy }: CategorySectionProps) {
                       </span>
                     )}
                   </div>
-                  <div className="text-gray-700 break-words">
-                    <div className="font-mono text-sm bg-white/50 px-2 py-1 rounded mb-1">
+                  <div className="text-gray-700">
+                    <div className="font-mono text-xs sm:text-sm bg-white/50 px-2 py-1 rounded mb-1 break-all">
                       {entry.formattedValue}
                     </div>
                     {entry.formattedValue !== entry.displayValue && (
-                      <div className="text-xs text-gray-500 font-mono">
+                      <div className="text-xs text-gray-500 font-mono break-all">
                         Raw: {entry.displayValue}
                       </div>
                     )}
@@ -71,7 +71,7 @@ function CategorySection({ category, entries, onCopy }: CategorySectionProps) {
                 </div>
                 <button
                   onClick={() => onCopy(String(entry.value))}
-                  className="ml-3 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
                   title="Copy value"
                 >
                   <Copy className="w-4 h-4" />
@@ -127,7 +127,7 @@ export default function PODDisplay({ jsonPOD, contentID, signerPublicKey }: PODD
           </div>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
             <span className="font-medium text-gray-600">Total Entries:</span>
             <span className="ml-2 font-mono text-gray-800">{formattedEntries.length}</span>
@@ -135,10 +135,10 @@ export default function PODDisplay({ jsonPOD, contentID, signerPublicKey }: PODD
           <div>
             <span className="font-medium text-gray-600">Content ID:</span>
             <div className="font-mono text-xs bg-white/70 p-2 rounded mt-1 break-all flex items-center">
-              {contentID.slice(0, 32)}...
+              <span className="flex-1 min-w-0">{contentID.slice(0, 32)}...</span>
               <button
                 onClick={() => copyToClipboard(contentID)}
-                className="ml-2 text-gray-500 hover:text-gray-700"
+                className="ml-2 text-gray-500 hover:text-gray-700 flex-shrink-0"
               >
                 <Copy className="w-3 h-3" />
               </button>
@@ -181,11 +181,11 @@ export default function PODDisplay({ jsonPOD, contentID, signerPublicKey }: PODD
         <div className="space-y-2 text-sm">
           <div>
             <span className="font-medium text-gray-600">Signer Public Key:</span>
-            <div className="font-mono text-xs bg-white p-2 rounded mt-1 break-all flex items-center">
-              {signerPublicKey}
+            <div className="font-mono text-xs bg-white p-2 rounded mt-1 break-all flex items-center gap-2">
+              <span className="flex-1 min-w-0">{signerPublicKey}</span>
               <button
                 onClick={() => copyToClipboard(signerPublicKey)}
-                className="ml-2 text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 flex-shrink-0"
               >
                 <Copy className="w-3 h-3" />
               </button>
