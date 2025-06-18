@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Frog-themed custom properties */
+:root {
+  --frog-green: #22c55e;
+  --frog-green-dark: #16a34a;
+  --frog-green-light: #dcfce7;
+  --lily-pad: #84cc16;
+  --pond-blue: #0ea5e9;
+  --pond-blue-dark: #0284c7;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 50%, #a7f3d0 100%);
+  min-height: 100vh;
+}
+
+/* Custom scrollbar for frog theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dcfce7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--frog-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--frog-green-dark);
+}
+
+/* Frog animations */
+@keyframes hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.animate-hop {
+  animation: hop 0.6s ease-in-out;
+}
+
+.animate-ripple {
+  animation: ripple 0.6s ease-out;
+}
+
+/* Custom button styles for frog theme */
+.btn-frog {
+  @apply bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.btn-frog:hover {
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+}
+
+/* Lily pad decoration */
+.lily-pad {
+  position: relative;
+}
+
+.lily-pad::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #84cc16 40%, transparent 40%);
+  border-radius: 50% 0;
+  opacity: 0.7;
+}

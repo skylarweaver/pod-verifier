@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dcfce7"/>
+      <stop offset="50%" style="stop-color:#bbf7d0"/>
+      <stop offset="100%" style="stop-color:#a7f3d0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Main frog -->
+  <circle cx="300" cy="315" r="80" fill="#22c55e"/>
+  <circle cx="270" cy="280" r="25" fill="#16a34a"/>
+  <circle cx="330" cy="280" r="25" fill="#16a34a"/>
+  <circle cx="270" cy="275" r="12" fill="#ffffff"/>
+  <circle cx="330" cy="275" r="12" fill="#ffffff"/>
+  <path d="M 260 350 Q 300 380 340 350" stroke="#16a34a" stroke-width="6" fill="none"/>
+  
+  <!-- Shield -->
+  <path d="M 300 200 L 320 220 L 320 260 Q 320 280 300 290 Q 280 280 280 260 L 280 220 Z" fill="#0ea5e9" stroke="#0284c7" stroke-width="3"/>
+  <path d="M 290 240 L 305 255 L 325 235" stroke="#ffffff" stroke-width="6" fill="none"/>
+  
+  <!-- Title -->
+  <text x="500" y="280" font-family="system-ui, sans-serif" font-size="72" font-weight="bold" fill="#166534">POD Verifier</text>
+  <text x="500" y="340" font-family="system-ui, sans-serif" font-size="36" fill="#15803d">Secure cryptographic verification for Provable Object Data</text>
+  <text x="500" y="390" font-family="system-ui, sans-serif" font-size="28" fill="#16a34a">🔐 Client-side • 🛡️ Secure • 🐸 Fun</text>
+  
+  <!-- Lily pads decoration -->
+  <ellipse cx="100" cy="500" rx="40" ry="25" fill="#84cc16" opacity="0.7"/>
+  <ellipse cx="1000" cy="150" rx="35" ry="20" fill="#84cc16" opacity="0.7"/>
+  <ellipse cx="1100" cy="520" rx="30" ry="18" fill="#84cc16" opacity="0.7"/>
+</svg>
